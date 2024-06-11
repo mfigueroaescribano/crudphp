@@ -1,0 +1,29 @@
+services:
+  crud:
+    container_name: crud-debian
+    image: miguelfigueroaedu/crudphp
+    restart: always
+    environment:
+      DB_USER: crud
+      DB_PASSWORD: crud
+      DB_HOST: crud-db
+      DB_NAME: crud
+    ports:
+      - 9095:80
+    depends_on:
+      - db
+
+  db:
+    container_name: crud-db
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: crud
+      MARIADB_USER: crud
+      MARIADB_PASSWORD: crud
+    volumes:
+      - crud_vol:/var/lib/mysql
+
+volumes:
+    crud_vol:
